@@ -1,0 +1,5 @@
+library(ggplot2)
+datos = read.table("parse2.dat",header=TRUE)
+datos$resid = gsub("[A-Z]","",datos$AA)
+datos$AA = factor(datos$AA,levels=datos[order(datos$resid,decreasing=TRUE),]$AA)
+ggplot(datos, aes (x=AA,y=Contacts,fill=Contacts))+scale_fill_gradient(low = "cyan", high = "blue")+ geom_bar(stat="identity",width=0.6) + coord_flip() + theme_bw() + ggsave("myPlot3.png")
